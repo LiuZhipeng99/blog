@@ -1139,7 +1139,7 @@ pre .javascript .function {
   bottom: 19px;
 }
 .header {
-  background-image: url("https://ws1.sinaimg.cn/large/694830ebgy1fh3pyd05klj21kw0f2dy2.jpg");
+  background-image: url("https://notes.doublemine.me/images/header-background.jpg");
 }
 .header-inner {
   position: relative;
@@ -1887,7 +1887,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2affda;
+  background: #77ffed;
 }
 .links-of-blogroll {
   font-size: 13px;

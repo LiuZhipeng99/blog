@@ -91,7 +91,7 @@
   
     
     
-    <link href="//fonts.cat.net/css?family=Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -352,7 +352,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2020-05-06T00:11:26+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2020-05-06T16:26:27+08:00">
                 2020-05-06
               </time>
             
@@ -361,17 +361,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2020/05/05/Hello-Hexo/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/05/05/Hello-Hexo/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -442,8 +431,9 @@
 <li>需要deploy时需npm下载git的包，站点配置文件的deploy项改为对应的repo和对应分支（国内gitee同样）。</li>
 </ol>
 </li>
+<li>本站使用的Next主题。先据hexo文档配置好hexo环境，再下载主题到配置文件theme中，通过git clone <em>repo_url</em>  theme/next 一步完成也可下载压缩包解压到theme目录下。修改站点配置文件的theme字段即可。需要查看next的文档来配置，继而有下面的特效美化 </li>
 </ul>
-<h2 id="深度定制（待续）"><a href="#深度定制（待续）" class="headerlink" title="深度定制（待续）"></a>深度定制（待续）</h2><h4 id="评论系统"><a href="#评论系统" class="headerlink" title="评论系统"></a>评论系统</h4><ul>
+<h2 id="博客美化（待续）"><a href="#博客美化（待续）" class="headerlink" title="博客美化（待续）"></a>博客美化（待续）</h2><h4 id="评论系统"><a href="#评论系统" class="headerlink" title="评论系统"></a>评论系统</h4><ul>
 <li><p>基于github-issue的<a href="https://imsun.net/posts/gitment-introduction/" target="_blank" rel="noopener">gitment</a></p>
 </li>
 <li><p>此外有韩国<a href="livere.com">来必力</a>。在next主题中使用参见<a href="http://theme-next.iissnan.com/third-party-services.html" target="_blank" rel="noopener">文档</a>第三方服务。</p>
@@ -458,6 +448,14 @@
 </ul>
 <h4 id="更多特效"><a href="#更多特效" class="headerlink" title="更多特效"></a>更多特效</h4><ul>
 <li><a href="https://blog.csdn.net/u011475210/article/details/79023429#comments" target="_blank" rel="noopener">播放器头像旋转等</a>、<a href="https://blog.csdn.net/weixin_43738731/article/details/85843474" target="_blank" rel="noopener">next深度定制</a></li>
+</ul>
+<h4 id="解决时延问题"><a href="#解决时延问题" class="headerlink" title="解决时延问题"></a>解决时延问题</h4><p><img src="https://github.com/kivid/blog/image/%E8%A7%A3%E5%86%B3%E6%97%B6%E5%BB%B6.png" alt="需要根据public结构"></p>
+<ul>
+<li>发布后发现加载过慢于是看看是什么原因。第一个是font即谷歌字体的镜像网站无法访问，本来查了些镜像站发现不会用，而原本默认的居然能访问于是在主题配置文件中更改font字段下的host。</li>
+<li>第二个是disq第三方评论网站被墙，只需将其字段设false。</li>
+<li>还有个是head的背景图片url失效去主题博主网站下载了（不知道为什么能Get到可能是本地的）。但本地应用由于hexo生成public文件夹发布会找不到于是使用其url（在head-style文件）</li>
+<li>Aplayer是js没有找到，查看博客的repo文件。</li>
+<li>网易云外链在博客只能点击几首歌，在这里发现是外链问题。依次对单曲产生外链发现是版权问题。</li>
 </ul>
 
           
@@ -563,17 +561,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2020/05/05/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/05/05/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1050,14 +1037,6 @@ const ap = new APlayer({
 
   
 
-    
-      <script id="dsq-count-scr" src="https://aw本人.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
 
 
 
@@ -1070,6 +1049,10 @@ const ap = new APlayer({
   
 
 
+
+
+
+  
 
 
 
