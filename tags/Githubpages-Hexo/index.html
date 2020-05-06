@@ -379,6 +379,18 @@
               <p class="site-author-name" itemprop="name">LZP-kivid</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
+<!--my custom code begin-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+<script type="text/javascript">
+  $("#sidebar").hover(function(){
+    $("#mydivshow").velocity('stop').velocity({opacity: 1});
+  },function(){
+    $("#mydivshow").velocity('stop').velocity({opacity: 0});
+  });
+</script>
+<div id="mydivshow" class="mydivshow">
+<!--my custom code end-->
 
           <nav class="site-state motion-element">
 
@@ -421,8 +433,27 @@
           
 
           
-
+<div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=320 src="//music.163.com/outchain/player?type=0&id=5005348059&auto=0&height=430"></iframe>
+</div>
+<div id="player1" class="aplayer"></div>
+<script src="/js/src/APlayer.min.js"></script>
+<script type="text/javascript">
+const ap = new APlayer({
+    container: document.getElementById('player'),
+    fixed: true,
+    audio: [{
+        name: 'name',
+        artist: 'artist',
+        url: 'url.mp3',
+        cover: 'cover.jpg',
+    }]
+});
+</script>
+          <!-- mycustom code begin -->
+          
         </div>
+      <!--   my custom code end -->
       </section>
 
       
@@ -755,6 +786,6 @@
 
   
 
-
+ <script src="https://blog-static.cnblogs.com/files/axqa/cursor-effects.js"></script> 
 </body>
 </html>
