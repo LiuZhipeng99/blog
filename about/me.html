@@ -139,7 +139,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-05T14:05:08.000Z">
 <meta property="article:modified_time" content="2020-05-05T14:05:08.050Z">
-<meta property="article:author" content="LZP-kivid">
+<meta property="article:author" content="LZP-aw本人">
 <meta property="article:tag" content="keyword1">
 <meta property="article:tag" content="keyword2">
 <meta property="article:tag" content="keyword3">
@@ -214,7 +214,7 @@
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description">副标题</h1>
+        <h1 class="site-subtitle" itemprop="description">subtitle</h1>
       
   </div>
 
@@ -372,9 +372,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/blog/images/avatar.jpg"
-                alt="LZP-kivid" />
+                alt="LZP-aw本人" />
             
-              <p class="site-author-name" itemprop="name">LZP-kivid</p>
+              <p class="site-author-name" itemprop="name">LZP-aw本人</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 <!--my custom code begin-->
@@ -422,6 +422,26 @@
 
           <div class="links-of-author motion-element">
             
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/kivids" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:1695949332@qq.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/yourname" target="_blank" title="Twitter">
+                    
+                      <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            
           </div>
 
           
@@ -430,7 +450,31 @@
           
           
 
-          
+          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+<script>
+    L2Dwidget.init({
+        "model": {
+            //jsonpath控制显示那个小萝莉模型，下面这个就是我觉得最可爱的小萝莉koharu模型，替换时后面名字也要替换掉
+            jsonPath: "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+            "scale": 1
+        },
+        "display": {
+            "position": "left", //看板娘的表现位置
+            "width": 75,  //小萝莉的宽度
+            "height": 150, //小萝莉的高度
+            "hOffset": 0,
+            "vOffset": -30
+        },
+        "mobile": {
+            "show": true,
+            "scale": 0.5
+        },
+        "react": {
+            "opacityDefault": 0.7,
+            "opacityOnHover": 0.2
+        }
+    });
+</script>
 <div id="music163player">
     <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=320 src="//music.163.com/outchain/player?type=0&id=5005348059&auto=0&height=430"></iframe>
 </div>
@@ -447,6 +491,45 @@ const ap = new APlayer({
         cover: 'cover.jpg',
     }]
 });
+</script>
+<button id="3Dtransition">3Dtransition</button>
+<script>
+  (function(){
+    var flag = false;
+    $("body").css({
+      "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+    })
+    function postCSS3d(){
+      if(flag == false){
+        flag = true;
+        $("body").css({
+            "transform": "perspective(6000px) rotateY(30deg) translateZ(-1000px) translateX(550px)",
+            "transform-style": "preserve-3d",
+            "perspective-origin": "50% 1000px",
+            "height": "100%",
+            "overflow": "scroll",
+            "pointer-events": "auto"
+        })
+        $("html").css({
+            "height": "100%"
+        })
+      }else{
+        flag = false;
+        $("body").css({
+            "transform": "inherit",
+            "transform-style": "inherit",
+            "perspective-origin": "inherit",
+            "height": "inherit",
+            "overflow": "inherit",
+            "pointer-events": "inherit"
+        })
+        $("html").css({
+            "height": "inherit"
+        })
+      }
+    }
+    $("3Dtransition").onClick(postCSS3d);
+  })()
 </script>
           <!-- mycustom code begin -->
           
@@ -472,7 +555,7 @@ const ap = new APlayer({
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">LZP-kivid</span>
+  <span class="author" itemprop="copyrightHolder">LZP-aw本人</span>
 
   
     <span class="post-meta-divider">|</span>
