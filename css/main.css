@@ -1139,7 +1139,7 @@ pre .javascript .function {
   bottom: 19px;
 }
 .header {
-  background-image: url("https://notes.doublemine.me/images/header-background.jpg");
+  background-image: url("");
 }
 .header-inner {
   position: relative;
@@ -1887,7 +1887,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffb98f;
+  background: #9624d9;
 }
 .links-of-blogroll {
   font-size: 13px;
