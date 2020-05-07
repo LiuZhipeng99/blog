@@ -51,17 +51,76 @@
 </li>
 <li>PS：摘要使用<!--more-->分割；阅读全文修改主题配置auto_excerpt字段</li>
 </ul>
-<h4 id="数据统计与分析（浏览次数等）"><a href="#数据统计与分析（浏览次数等）" class="headerlink" title="数据统计与分析（浏览次数等）"></a>数据统计与分析（浏览次数等）</h4><h4 id="添加文章阅读量统计功能（字数统计，阅读时间）"><a href="#添加文章阅读量统计功能（字数统计，阅读时间）" class="headerlink" title="添加文章阅读量统计功能（字数统计，阅读时间）"></a>添加文章阅读量统计功能（字数统计，阅读时间）</h4><h4 id="看板娘"><a href="#看板娘" class="headerlink" title="看板娘"></a>看板娘</h4><ul>
+<h4 id="恶搞标题"><a href="#恶搞标题" class="headerlink" title="恶搞标题"></a>恶搞标题</h4><ul>
+<li><p>点击<a href="diygod.me">效果</a></p>
+</li>
+<li><p>在主题文件下找到head文件里加入</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> OriginTitle = <span class="built_in">document</span>.title;</span><br><span class="line"><span class="keyword">var</span> titleTime;</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'visibilitychange'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.hidden) &#123;</span><br><span class="line">        $(<span class="string">'[rel="icon"]'</span>).attr(<span class="string">'href'</span>, <span class="string">"/img/trhx2.png"</span>);</span><br><span class="line">        <span class="built_in">document</span>.title = <span class="string">'ヽ(●-`Д´-)ノ你丑你就走！'</span>;</span><br><span class="line">        clearTimeout(titleTime);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">'[rel="icon"]'</span>).attr(<span class="string">'href'</span>, <span class="string">"/img/trhx2.png"</span>);</span><br><span class="line">        <span class="built_in">document</span>.title = <span class="string">'ヾ(Ő∀Ő3)ノ你帅就回来！'</span> + OriginTitle;</span><br><span class="line">        titleTime = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">document</span>.title = OriginTitle;</span><br><span class="line">        &#125;, <span class="number">2000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="看板娘"><a href="#看板娘" class="headerlink" title="看板娘"></a>看板娘</h4><ul>
 <li><a href="https://www.cnblogs.com/ButterflyEffect/p/10839613.html" target="_blank" rel="noopener">live2d</a></li>
 </ul>
-<h4 id="点击特效"><a href="#点击特效" class="headerlink" title="点击特效"></a>点击特效</h4><ul>
-<li>光标 点击烟花<a href="https://www.cnblogs.com/axqa/p/11537599.html" target="_blank" rel="noopener">这里</a></li>
-<li>以上在百度知乎GitHub上找</li>
+<h4 id="点击滑动特效"><a href="#点击滑动特效" class="headerlink" title="点击滑动特效"></a>点击滑动特效</h4><ul>
+<li><p>点击🎈爆炸:放在主题文件下_layout文件中</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 点击出现彩色气球爆炸效果 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">class</span>=<span class="string">"fireworks"</span> <span class="attr">style</span>=<span class="string">"position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"</span> &gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/animejs/2.2.0/anime.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/gh/wallleap/cdn/js/clickBom.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>光标 点击烟花效果<a href="https://www.cnblogs.com/axqa/p/11537599.html" target="_blank" rel="noopener">这里</a></p>
+</li>
+<li><p>鼠标滑过特效 星星残影：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/gh/wallleap/cdn/js/xuehua.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="网站运行时"><a href="#网站运行时" class="headerlink" title="网站运行时"></a>网站运行时</h4><ul>
+<li><p>在主题footer加入：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"timeDate"</span>&gt;</span>载入天数...<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"times"</span>&gt;</span>载入时分秒...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>(); </span></span><br><span class="line"><span class="actionscript">  <span class="function"><span class="keyword">function</span> <span class="title">createtime</span><span class="params">()</span> </span>&#123; </span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> grt= <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"03/08/2020 16:44:00"</span>);<span class="comment">//此处修改你的建站时间或者网站上线时间 </span></span></span><br><span class="line">    now.setTime(now.getTime()+250); </span><br><span class="line"><span class="javascript">    days = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> / <span class="number">24</span>; dnum = <span class="built_in">Math</span>.floor(days); </span></span><br><span class="line"><span class="javascript">    hours = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> - (<span class="number">24</span> * dnum); hnum = <span class="built_in">Math</span>.floor(hours); </span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span>(<span class="built_in">String</span>(hnum).length ==<span class="number">1</span> )&#123;hnum = <span class="string">"0"</span> + hnum;&#125; minutes = (now - grt ) / <span class="number">1000</span> /<span class="number">60</span> - (<span class="number">24</span> * <span class="number">60</span> * dnum) - (<span class="number">60</span> * hnum); </span></span><br><span class="line"><span class="javascript">    mnum = <span class="built_in">Math</span>.floor(minutes); <span class="keyword">if</span>(<span class="built_in">String</span>(mnum).length ==<span class="number">1</span> )&#123;mnum = <span class="string">"0"</span> + mnum;&#125; </span></span><br><span class="line">    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); </span><br><span class="line"><span class="javascript">    snum = <span class="built_in">Math</span>.round(seconds); <span class="keyword">if</span>(<span class="built_in">String</span>(snum).length ==<span class="number">1</span> )&#123;snum = <span class="string">"0"</span> + snum;&#125; </span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">"timeDate"</span>).innerHTML = <span class="string">"本站已安全运行 "</span>+dnum+<span class="string">" 天 "</span>; </span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">"times"</span>).innerHTML = hnum + <span class="string">" 小时 "</span> + mnum + <span class="string">" 分 "</span> + snum + <span class="string">" 秒"</span>; </span></span><br><span class="line">  &#125; </span><br><span class="line"><span class="actionscript">  setInterval(<span class="string">"createtime()"</span>,<span class="number">250</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="背景显示飘动的彩带"><a href="#背景显示飘动的彩带" class="headerlink" title="背景显示飘动的彩带"></a>背景显示飘动的彩带</h4><ul>
+<li><p>同上layout：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/gh/wallleap/cdn/js/piao.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>背景显示分子状线条</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="樱花飘落或雪花飘落"><a href="#樱花飘落或雪花飘落" class="headerlink" title="樱花飘落或雪花飘落"></a>樱花飘落或雪花飘落</h4><ul>
+<li>樱花src：_<a href="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js_同上位置" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js_同上位置</a></li>
+<li>雪花src: _<a href="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/xuehuapiaoluo.js_或者_https://cdn.jsdelivr.net/gh/wallleap/cdn/js/snow.js_选择一个" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/wallleap/cdn/js/xuehuapiaoluo.js_或者_https://cdn.jsdelivr.net/gh/wallleap/cdn/js/snow.js_选择一个</a></li>
+</ul>
+<h4 id="禁用按键"><a href="#禁用按键" class="headerlink" title="禁用按键"></a>禁用按键</h4><ul>
+<li><p>禁用了右键F12等</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/gh/wallleap/cdn/js/noSomeKey.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="wordcout"><a href="#wordcout" class="headerlink" title="wordcout"></a>wordcout</h4><ul>
+<li><p>在主题有字段post_wordcout：需要先npm下载hexo-wordcout才能用</p>
+</li>
+<li><p>另外默认没有单位，修改themes\next\layout_macro\post.swig：例如</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; __('post.min2read') &#125;&#125;"</span>&gt;</span></span><br><span class="line">   &#123;&#123; min2read(post.content) &#125;&#125; 分钟</span><br><span class="line"> <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
 </ul>
 <h4 id="更多特效"><a href="#更多特效" class="headerlink" title="更多特效"></a>更多特效</h4><ul>
-<li><a href="https://blog.csdn.net/u011475210/article/details/79023429#comments" target="_blank" rel="noopener">播放器头像旋转等</a>、<a href="https://blog.csdn.net/weixin_43738731/article/details/85843474" target="_blank" rel="noopener">next深度定制</a></li>
+<li><a href="https://blog.csdn.net/u011475210/article/details/79023429#comments" target="_blank" rel="noopener">播放器头像旋转等</a>、<a href="https://blog.csdn.net/weixin_43738731/article/details/85843474" target="_blank" rel="noopener">next深度定制</a>、添加文章阅读量统计功能、数据统计与分析</li>
 </ul>
-<h4 id="解决时延问题"><a href="#解决时延问题" class="headerlink" title="解决时延问题"></a>解决时延问题</h4><p><img src="https://kivid.github.io/blog/image/%E8%A7%A3%E5%86%B3%E6%97%B6%E5%BB%B6.png" alt="需要根据public结构"></p>
+<h4 id="解决时延问题"><a href="#解决时延问题" class="headerlink" title="解决时延问题"></a>解决时延问题</h4><p><img src="/images/loading.png" data-original="https://kivid.github.io/blog/image/%E8%A7%A3%E5%86%B3%E6%97%B6%E5%BB%B6.png" alt="需要根据public结构"></p>
 <ul>
 <li>发布后发现加载过慢于是看看是什么原因。第一个是font即谷歌字体的镜像网站无法访问，本来查了些镜像站发现不会用，而原本默认的居然能访问于是在主题配置文件中更改font字段下的host。</li>
 <li>第二个是disq第三方评论网站被墙，只需将其字段设false。</li>
