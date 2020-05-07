@@ -118,7 +118,7 @@
 </li>
 </ul>
 <h4 id="更多特效"><a href="#更多特效" class="headerlink" title="更多特效"></a>更多特效</h4><ul>
-<li><a href="https://blog.csdn.net/u011475210/article/details/79023429#comments" target="_blank" rel="noopener">播放器头像旋转等</a>、<a href="https://blog.csdn.net/weixin_43738731/article/details/85843474" target="_blank" rel="noopener">next深度定制</a>、添加文章阅读量统计功能、数据统计与分析</li>
+<li><a href="https://blog.csdn.net/u011475210/article/details/79023429#comments" target="_blank" rel="noopener">播放器头像旋转等</a>、<a href="https://blog.csdn.net/weixin_43738731/article/details/85843474" target="_blank" rel="noopener">next深度定制</a>、添加文章阅读量统计功能（next文档第三方服务部分：记得手动加Counter类）、数据统计与分析</li>
 </ul>
 <h4 id="解决时延问题"><a href="#解决时延问题" class="headerlink" title="解决时延问题"></a>解决时延问题</h4><p><img src="/images/loading.png" data-original="https://kivid.github.io/blog/image/%E8%A7%A3%E5%86%B3%E6%97%B6%E5%BB%B6.png" alt="需要根据public结构"></p>
 <ul>
