@@ -159,8 +159,10 @@
   <entry>
     <title>Tensorflow学习笔记(一）</title>
     <url>/blog/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<pre><code>本文回忆学习tensorflow的经验和总结
-&lt;!--more--&gt;</code></pre><blockquote>
+    <content><![CDATA[<p>  学习tensorflow的经验和总结</p>
+<a id="more"></a>
+
+<blockquote>
 <p>想学习tf的人，或许啃完了网上的机器学习课程（吴恩达），或许正在上学校里的机器学习课程，抑或是只解皮毛而想快速入门。<br>学前建议：<br> 1.对于没有任何基础的兄台还是老老实实的回去看看高数，不然走不下去。<br> 2.对于正在学机器学习的人来说，你或许已经了解梯度下降，知道若干种损失函数激活函数，但建议先自己动手做网络构建走基础路线。例如吴恩达课程和本人<a href="https://github.com/microsoft/ai-edu/tree/master/A-%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">用的</a>（基于python）。<br> 3.对于基础扎实的同学来说，tf将会是你大有作为的舞台。尽管去看那些网上丰富的文档相信你不会迷路。</p>
 </blockquote>
 <h4 id="关于搭建环境"><a href="#关于搭建环境" class="headerlink" title="关于搭建环境"></a>关于搭建环境</h4><p>  如果是初学TF建议使用cpu版本，这样省去诸多麻烦。例如gpu版本需要电脑gpu支持（nividia，需要驱动），并且安装cuDnn和cudatoolkit（需要和tensorflow版本对应），另外python高版本还未适配tensorflow所以不能安装过高版本，此时anaconda闪亮登场，它不仅能虚拟环境让py、包等与系统隔离开，指定python版本和自动下相应cuda搭配。当然如果用cpu版本无需考虑。</p>
