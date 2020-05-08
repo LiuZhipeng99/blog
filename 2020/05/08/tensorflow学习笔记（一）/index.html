@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/blog/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/blog/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Tensorflow,笔记," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="There for You" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文回忆学习tensorflow的经验和总结 &lt;!--more--&gt; 想学习tf的人，或许啃完了网上的机器学习课程（吴恩达），或许正在上学校里的机器学习课程，抑或是只解皮毛而想快速入门。学前建议： 1.对于没有任何基础的兄台还是老老实实的回去看看高数，不然走不下去。 2.对于正在学机器学习的人来说，你或许已经了解梯度下降，知道若干种损失函数激活函数，但建议先自己动手做网络构建走基础路线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow学习笔记(一）">
+<meta property="og:url" content="http://yoursite.com/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+<meta property="og:site_name" content="There for You">
+<meta property="og:description" content="本文回忆学习tensorflow的经验和总结 &lt;!--more--&gt; 想学习tf的人，或许啃完了网上的机器学习课程（吴恩达），或许正在上学校里的机器学习课程，抑或是只解皮毛而想快速入门。学前建议： 1.对于没有任何基础的兄台还是老老实实的回去看看高数，不然走不下去。 2.对于正在学机器学习的人来说，你或许已经了解梯度下降，知道若干种损失函数激活函数，但建议先自己动手做网络构建走基础路线">
+<meta property="article:published_time" content="2020-05-08T09:37:31.000Z">
+<meta property="article:modified_time" content="2020-05-08T09:40:42.890Z">
+<meta property="article:author" content="友人A">
+<meta property="article:tag" content="Tensorflow">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/08/tensorflow学习笔记（一）/"/>
+
+
+
+
+
+<script type="text/javascript">
+   var OriginTitle = document.title;
+ var titleTime;
+ document.addEventListener('visibilitychange', function () {
+     if (document.hidden) {
+         $('[rel="icon"]').attr('href', "/img/trhx2.png");
+         document.title = 'ヽ(●-`Д´-)ノ哟！崩溃了！';
+         clearTimeout(titleTime);
+     }
+     else {
+         $('[rel="icon"]').attr('href', "/img/trhx2.png");
+         document.title = 'ヾ(Ő∀Ő3)咦?又好了' + OriginTitle;
+         titleTime = setTimeout(function () {
+             document.title = OriginTitle;
+         }, 2000);
+     }
+ });
+</script>
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <title>Tensorflow学习笔记(一） | There for You</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">There for You</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">keep loving the world</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="友人A">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="There for You">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Tensorflow学习笔记(一）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-08T17:37:31+08:00">
+                2020-05-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-08T17:40:42+08:00">
+                2020-05-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" class="leancloud_visitors" data-flag-title="Tensorflow学习笔记(一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>本文回忆学习tensorflow的经验和总结
+&lt;!--more--&gt;</code></pre><blockquote>
+<p>想学习tf的人，或许啃完了网上的机器学习课程（吴恩达），或许正在上学校里的机器学习课程，抑或是只解皮毛而想快速入门。<br>学前建议：<br> 1.对于没有任何基础的兄台还是老老实实的回去看看高数，不然走不下去。<br> 2.对于正在学机器学习的人来说，你或许已经了解梯度下降，知道若干种损失函数激活函数，但建议先自己动手做网络构建走基础路线。例如吴恩达课程和本人<a href="https://github.com/microsoft/ai-edu/tree/master/A-%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">用的</a>（基于python）。<br> 3.对于基础扎实的同学来说，tf将会是你大有作为的舞台。尽管去看那些网上丰富的文档相信你不会迷路。</p>
+</blockquote>
+<h4 id="关于搭建环境"><a href="#关于搭建环境" class="headerlink" title="关于搭建环境"></a>关于搭建环境</h4><p>  如果是初学TF建议使用cpu版本，这样省去诸多麻烦。例如gpu版本需要电脑gpu支持（nividia，需要驱动），并且安装cuDnn和cudatoolkit（需要和tensorflow版本对应），另外python高版本还未适配tensorflow所以不能安装过高版本，此时anaconda闪亮登场，它不仅能虚拟环境让py、包等与系统隔离开，指定python版本和自动下相应cuda搭配。当然如果用cpu版本无需考虑。</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">print(tf.__version__) <span class="comment">#打印即成功</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="关于keras和tf-keras"><a href="#关于keras和tf-keras" class="headerlink" title="关于keras和tf.keras"></a>关于keras和tf.keras</h4><p>  现在都是直接下载tensorflow里面内置了keras，官方也推荐使用后者，相当于后者是将其收纳了，实际上关系是：tensorflow作为其计算工具，后者是tensorflow的高级api，简单来说就是协作关系，keras是只笔，tensorflow是张纸。</p>
+<h4 id="初识Tensorflow"><a href="#初识Tensorflow" class="headerlink" title="初识Tensorflow"></a>初识Tensorflow</h4><blockquote>
+<p>前馈神经网络：<strong>分为多层, 相邻层之间全连接, 不存在同层连接与跨层连接</strong>. 整个网络中无反馈，可用一个有向无环图表示.用标准bp算法训练（基于SDG）。</p>
+<p>以下从特性到建立模型和训练。从代码实战开始</p>
+</blockquote>
+<ol>
+<li>了解其特效和基础–自动求导机制</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">x = tf.Variable(initial_value=<span class="number">3.</span>)</span><br><span class="line"><span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">  y = <span class="number">3</span>*tf.square(x)</span><br><span class="line">  z = y+<span class="number">3</span>*x</span><br><span class="line">z_grad = tape.gradient(z,x)</span><br><span class="line">print(y,z,z_grad)</span><br><span class="line"><span class="comment">#利用其求偏导</span></span><br><span class="line">X = tf.constant([[<span class="number">1.</span>, <span class="number">2.</span>], [<span class="number">3.</span>, <span class="number">4.</span>]])</span><br><span class="line">y = tf.constant([[<span class="number">1.</span>], [<span class="number">2.</span>]])</span><br><span class="line">w = tf.Variable(initial_value=[[<span class="number">1.</span>], [<span class="number">2.</span>]])</span><br><span class="line">b = tf.Variable(initial_value=<span class="number">1.</span>)</span><br><span class="line"><span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">    L = tf.reduce_sum(tf.square(tf.matmul(X, w) + b - y))</span><br><span class="line">w_grad, b_grad = tape.gradient(L, [w, b])        <span class="comment"># 计算L(w, b)关于w, b的偏导数</span></span><br><span class="line">print(L, w_grad, b_grad)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 线性回归示例：生成data</span></span><br><span class="line">X_raw = np.array([<span class="number">2013</span>, <span class="number">2014</span>, <span class="number">2015</span>, <span class="number">2016</span>, <span class="number">2017</span>], dtype=np.float32)</span><br><span class="line">y_raw = np.array([<span class="number">12000</span>, <span class="number">14000</span>, <span class="number">15000</span>, <span class="number">16500</span>, <span class="number">17500</span>], dtype=np.float32)</span><br><span class="line"></span><br><span class="line">X = (X_raw - X_raw.min()) / (X_raw.max() - X_raw.min())</span><br><span class="line">y = (y_raw - y_raw.min()) / (y_raw.max() - y_raw.min())</span><br><span class="line">X = tf.constant(X)</span><br><span class="line">y = tf.constant(y)</span><br><span class="line"></span><br><span class="line">a = tf.Variable(initial_value=<span class="number">0.</span>)</span><br><span class="line">b = tf.Variable(initial_value=<span class="number">0.</span>)</span><br><span class="line">variables=[a,b]</span><br><span class="line">num_epoch = <span class="number">10000</span></span><br><span class="line">opt = tf.keras.optimizers.SGD(learning_rate=<span class="number">5e-4</span>)</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> range(num_epoch):</span><br><span class="line">  <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">      y_pred = a * X + b</span><br><span class="line">      loss = tf.reduce_sum(tf.square(y_pred-y))</span><br><span class="line">  grads = tape.gradient(loss,variables)</span><br><span class="line">  opt.apply_gradients(grads_and_vars=zip(grads,variables))</span><br><span class="line">print(a,b)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建自己的模型作用如上面的运算和variable（下面的方法都是各类框架通用，没有使用高级api，都是自定义网络）</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModel</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()     <span class="comment"># Python 2 下使用 super(MyModel, self).__init__()</span></span><br><span class="line">        <span class="comment"># 此处添加初始化代码（包含 call 方法中会用到的层），例如</span></span><br><span class="line">        <span class="comment"># layer1 = tf.keras.layers.BuiltInLayer(...)</span></span><br><span class="line">        <span class="comment"># layer2 = MyCustomLayer(...)</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, input)</span>:</span></span><br><span class="line">        <span class="comment"># 此处添加模型调用的代码（处理输入并返回输出），例如</span></span><br><span class="line">        <span class="comment"># x = layer1(input)</span></span><br><span class="line">        <span class="comment"># output = layer2(x)</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 还可以添加自定义的方法</span></span><br><span class="line"><span class="comment">#由于继承自model其有variable这一属性获取所有变量</span></span><br><span class="line"><span class="comment">#将上例的y=ax+b模型化</span></span><br><span class="line">X = tf.constant([[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>], [<span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>]])</span><br><span class="line">y = tf.constant([[<span class="number">10.0</span>], [<span class="number">20.0</span>]])</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Linear</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.dense = tf.keras.layers.Dense(</span><br><span class="line">            units = <span class="number">1</span>,</span><br><span class="line">            activation=<span class="literal">None</span>,</span><br><span class="line">            kernel_initializer=tf.zeros_initializer(),</span><br><span class="line">            bias_initializer=tf.zeros_initializer()</span><br><span class="line"></span><br><span class="line">            )</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self,input)</span>:</span></span><br><span class="line">        output = self.dense(input)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line">model = Linear()</span><br><span class="line">optimizer = tf.keras.optimizers.SGD(learning_rate=<span class="number">0.01</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">    <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">        y_pred = model(X)      <span class="comment"># 调用模型 y_pred = model(X) 而不是显式写出 y_pred = a * X + b</span></span><br><span class="line">        loss = tf.reduce_mean(tf.square(y_pred - y))</span><br><span class="line">    grads = tape.gradient(loss, model.variables)    <span class="comment"># 使用 model.variables 这一属性直接获得模型中的所有变量</span></span><br><span class="line">    optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))</span><br><span class="line">print((model.variables),model.call(X))</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>编写个MLP即多层全连接的前馈神经网络，所看教程最后的数字识别</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MNISTLoader</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        mnist = tf.keras.datasets.mnist <span class="comment">#下面的load函数第一次会download  </span></span><br><span class="line">        (self.train_data,self.train_label),(self.test_data,self.test_label) = mnist.load_data()</span><br><span class="line">        <span class="comment"># MNIST中的图像默认为uint8（0-255的数字）。以下代码将其归一化到0-1之间的浮点数，并在最后增加一维作为颜色通道</span></span><br><span class="line">        self.train_data = np.expand_dims(self.train_data.astype(np.float32) / <span class="number">255.0</span>, axis=<span class="number">-1</span>)      <span class="comment"># [60000, 28, 28, 1]</span></span><br><span class="line">        self.test_data = np.expand_dims(self.test_data.astype(np.float32) / <span class="number">255.0</span>, axis=<span class="number">-1</span>)        <span class="comment"># [10000, 28, 28, 1]</span></span><br><span class="line">        self.train_label = self.train_label.astype(np.int32)    <span class="comment"># [60000]</span></span><br><span class="line">        self.test_label = self.test_label.astype(np.int32)      <span class="comment"># [10000]</span></span><br><span class="line">        self.num_train_data, self.num_test_data = self.train_data.shape[<span class="number">0</span>], self.test_data.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_batch</span><span class="params">(self, batch_size)</span>:</span></span><br><span class="line">        <span class="comment"># 从数据集中随机取出batch_size个元素并返回</span></span><br><span class="line">        index = np.random.randint(<span class="number">0</span>, np.shape(self.train_data)[<span class="number">0</span>], batch_size)<span class="comment">#返回列表</span></span><br><span class="line">        <span class="keyword">return</span> self.train_data[index, :], self.train_label[index]</span><br><span class="line">data = MNISTLoader()</span><br><span class="line"><span class="comment"># print(data.train_data[0][],data.train_label) #traindata=(6000,28,28)</span></span><br><span class="line"><span class="comment"># test = np.array([[1,2],[2,3]])</span></span><br><span class="line"><span class="comment"># print(np.expand_dims(test/5,axis=-1)) 这种操作结果增加一维度但实际不变，增加的一维就是替换掉原本</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MLP</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__() </span><br><span class="line">        self.flatten = tf.keras.layers.Flatten() <span class="comment"># Flatten层将除第一维（batch_size）以外的维度展平 用于输入层</span></span><br><span class="line">        self.dense1 = tf.keras.layers.Dense(units=<span class="number">256</span>,activation=tf.nn.relu)<span class="comment">#初始accuracy: 0.928500，loss=0.15</span></span><br><span class="line">        self.dense2 = tf.keras.layers.Dense(units=<span class="number">64</span>,activation=tf.nn.relu)<span class="comment">#加了这层后accuracy: 0.935200，loss降到了0.08，如果是sigmiod比初始还差</span></span><br><span class="line">        self.dense3 = tf.keras.layers.Dense(units=<span class="number">10</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self,inputs)</span>:</span></span><br><span class="line">        x = self.flatten(inputs)</span><br><span class="line">        x = self.dense1(x)</span><br><span class="line">        x = self.dense2(x)</span><br><span class="line">        x = self.dense3(x)</span><br><span class="line">        output = tf.nn.softmax(x)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>mnist再用卷积神经网络来分类除了全连接层还有池化卷积，用时翻倍但准确率也高</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CNN</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.conv1 = tf.keras.layers.Conv2D(</span><br><span class="line">            filters=<span class="number">32</span>,             <span class="comment"># 卷积层神经元（卷积核）数目</span></span><br><span class="line">            kernel_size=[<span class="number">5</span>, <span class="number">5</span>],     <span class="comment"># 感受野大小</span></span><br><span class="line">            padding=<span class="string">'same'</span>,         <span class="comment"># padding策略（vaild 或 same）</span></span><br><span class="line">            activation=tf.nn.relu   <span class="comment"># 激活函数</span></span><br><span class="line">        )</span><br><span class="line">        self.pool1 = tf.keras.layers.MaxPool2D(pool_size=[<span class="number">2</span>, <span class="number">2</span>], strides=<span class="number">2</span>)</span><br><span class="line">        self.conv2 = tf.keras.layers.Conv2D(</span><br><span class="line">            filters=<span class="number">64</span>,</span><br><span class="line">            kernel_size=[<span class="number">5</span>, <span class="number">5</span>],</span><br><span class="line">            padding=<span class="string">'same'</span>,</span><br><span class="line">            activation=tf.nn.relu</span><br><span class="line">        )</span><br><span class="line">        self.pool2 = tf.keras.layers.MaxPool2D(pool_size=[<span class="number">2</span>, <span class="number">2</span>], strides=<span class="number">2</span>)</span><br><span class="line">        self.flatten = tf.keras.layers.Reshape(target_shape=(<span class="number">7</span> * <span class="number">7</span> * <span class="number">64</span>,))</span><br><span class="line">        self.dense1 = tf.keras.layers.Dense(units=<span class="number">1024</span>, activation=tf.nn.relu)</span><br><span class="line">        self.dense2 = tf.keras.layers.Dense(units=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        x = self.conv1(inputs)                  <span class="comment"># [batch_size, 28, 28, 32]</span></span><br><span class="line">        x = self.pool1(x)                       <span class="comment"># [batch_size, 14, 14, 32]</span></span><br><span class="line">        x = self.conv2(x)                       <span class="comment"># [batch_size, 14, 14, 64]</span></span><br><span class="line">        x = self.pool2(x)                       <span class="comment"># [batch_size, 7, 7, 64]</span></span><br><span class="line">        x = self.flatten(x)                     <span class="comment"># [batch_size, 7 * 7 * 64]</span></span><br><span class="line">        x = self.dense1(x)                      <span class="comment"># [batch_size, 1024]</span></span><br><span class="line">        x = self.dense2(x)                      <span class="comment"># [batch_size, 10]</span></span><br><span class="line">        output = tf.nn.softmax(x)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#训练Mnist的方法，传入构造的模型</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trainMLP</span><span class="params">(model)</span>:</span>    </span><br><span class="line">    batch_size = <span class="number">100</span></span><br><span class="line">    num_epochs = <span class="number">3</span></span><br><span class="line">    learning_rate = <span class="number">0.008</span> <span class="comment">#调试各个参数提高准确率,在翻倍epoch后达到了97</span></span><br><span class="line">    <span class="comment"># model = Model()</span></span><br><span class="line">    data_loader = MNISTLoader()</span><br><span class="line">    opt = tf.keras.optimizers.Adam(learning_rate)</span><br><span class="line">    num_batches = int(data_loader.num_train_data // batch_size * num_epochs)</span><br><span class="line">    <span class="keyword">for</span> batch_index <span class="keyword">in</span> range(num_batches):</span><br><span class="line">        X, y = data_loader.get_batch(batch_size)</span><br><span class="line">        <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">            y_pred = model(X)</span><br><span class="line">            loss = tf.keras.losses.sparse_categorical_crossentropy(y_true=y, y_pred=y_pred)</span><br><span class="line">            loss = tf.reduce_mean(loss)</span><br><span class="line">            print(<span class="string">"batch %d: loss %f"</span> % (batch_index, loss.numpy()))</span><br><span class="line">        grads = tape.gradient(loss, model.variables)</span><br><span class="line">        opt.apply_gradients(grads_and_vars=zip(grads, model.variables))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">metrics</span><span class="params">()</span>:</span></span><br><span class="line">        sparse_categorical_accuracy = tf.keras.metrics.SparseCategoricalAccuracy()</span><br><span class="line">        num_batches = int(data_loader.num_test_data // batch_size)</span><br><span class="line">        <span class="keyword">for</span> batch_index <span class="keyword">in</span> range(num_batches):</span><br><span class="line">            start_index, end_index = batch_index * batch_size, (batch_index + <span class="number">1</span>) * batch_size</span><br><span class="line">            y_pred = model.predict(data_loader.test_data[start_index: end_index])</span><br><span class="line">            sparse_categorical_accuracy.update_state(y_true=data_loader.test_label[start_index: end_index], y_pred=y_pred)</span><br><span class="line">        print(<span class="string">"test accuracy: %f"</span> % sparse_categorical_accuracy.result())</span><br><span class="line">    metrics()        </span><br><span class="line"><span class="comment"># traincnn()</span></span><br><span class="line"><span class="comment"># print(model.variables)在训练前为空列表</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><p>循环神经网络：文本处理，task以RNN生成尼采风格文本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextLoader</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        path = tf.keras.utils.get_file(<span class="string">'nietzsche.txt'</span>,</span><br><span class="line">            origin=<span class="string">'https://s3.amazonaws.com/text-datasets/nietzsche.txt'</span>)</span><br><span class="line">        <span class="keyword">with</span> open(path, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            self.raw_text = f.read().lower()</span><br><span class="line">        self.chars = sorted(list(set(self.raw_text)))</span><br><span class="line">        self.char_indices = dict((c, i) <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(self.chars))</span><br><span class="line">        self.indices_char = dict((i, c) <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(self.chars))</span><br><span class="line">        self.text = [self.char_indices[c] <span class="keyword">for</span> c <span class="keyword">in</span> self.raw_text]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_batch</span><span class="params">(self, seq_length, batch_size)</span>:</span></span><br><span class="line">        seq = []</span><br><span class="line">        next_char = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(batch_size):</span><br><span class="line">            index = np.random.randint(<span class="number">0</span>, len(self.text) - seq_length)</span><br><span class="line">            seq.append(self.text[index:index+seq_length])</span><br><span class="line">            next_char.append(self.text[index+seq_length])</span><br><span class="line">        <span class="keyword">return</span> np.array(seq), np.array(next_char)       <span class="comment"># [batch_size, seq_length], [num_batch]</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num_chars, batch_size, seq_length)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.num_chars = num_chars</span><br><span class="line">        self.seq_length = seq_length</span><br><span class="line">        self.batch_size = batch_size</span><br><span class="line">        self.cell = tf.keras.layers.LSTMCell(units=<span class="number">256</span>)</span><br><span class="line">        self.dense = tf.keras.layers.Dense(units=self.num_chars)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs, from_logits=False)</span>:</span></span><br><span class="line">        inputs = tf.one_hot(inputs, depth=self.num_chars)       <span class="comment"># [batch_size, seq_length, num_chars]</span></span><br><span class="line">        state = self.cell.get_initial_state(batch_size=self.batch_size, dtype=tf.float32)</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> range(self.seq_length):</span><br><span class="line">            output, state = self.cell(inputs[:, t, :], state)</span><br><span class="line">        logits = self.dense(output)</span><br><span class="line">        <span class="keyword">if</span> from_logits:</span><br><span class="line">            <span class="keyword">return</span> logits</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> tf.nn.softmax(logits)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, inputs, temperature=<span class="number">1.</span>)</span>:</span></span><br><span class="line">        batch_size, _ = tf.shape(inputs)</span><br><span class="line">        logits = self(inputs, from_logits=<span class="literal">True</span>)</span><br><span class="line">        prob = tf.nn.softmax(logits / temperature).numpy()</span><br><span class="line">        <span class="keyword">return</span> np.array([np.random.choice(self.num_chars, p=prob[i, :])</span><br><span class="line">                         <span class="keyword">for</span> i <span class="keyword">in</span> range(batch_size.numpy())])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trainRnn</span><span class="params">()</span>:</span></span><br><span class="line">    num_batches = <span class="number">1000</span></span><br><span class="line">    seq_length = <span class="number">40</span></span><br><span class="line">    batch_size = <span class="number">50</span></span><br><span class="line">    learning_rate = <span class="number">1e-3</span></span><br><span class="line">    data_loader = TextLoader()</span><br><span class="line">    model = RNN(num_chars=len(data_loader.chars), batch_size=batch_size, seq_length=seq_length)</span><br><span class="line">    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)</span><br><span class="line">    <span class="keyword">for</span> batch_index <span class="keyword">in</span> range(num_batches):</span><br><span class="line">        X, y = data_loader.get_batch(seq_length, batch_size)</span><br><span class="line">        <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">            y_pred = model(X)</span><br><span class="line">            loss = tf.keras.losses.sparse_categorical_crossentropy(y_true=y, y_pred=y_pred)</span><br><span class="line">            loss = tf.reduce_mean(loss)</span><br><span class="line">            print(<span class="string">"batch %d: loss %f"</span> % (batch_index, loss.numpy()))</span><br><span class="line">        grads = tape.gradient(loss, model.variables)</span><br><span class="line">        optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#雪球式预测下个char</span></span><br><span class="line">    X_, _ = data_loader.get_batch(seq_length, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> diversity <span class="keyword">in</span> [<span class="number">0.2</span>, <span class="number">0.5</span>, <span class="number">1.0</span>, <span class="number">1.2</span>]:</span><br><span class="line">        X = X_</span><br><span class="line">        print(<span class="string">"diversity %f:"</span> % diversity)</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">400</span>):</span><br><span class="line">            y_pred = model.predict(X, diversity)</span><br><span class="line">            print(data_loader.indices_char[y_pred[<span class="number">0</span>]], end=<span class="string">''</span>, flush=<span class="literal">True</span>)</span><br><span class="line">            X = np.concatenate([X[:, <span class="number">1</span>:], np.expand_dims(y_pred, axis=<span class="number">1</span>)], axis=<span class="number">-1</span>)</span><br><span class="line">        print(<span class="string">"\n"</span>)</span><br><span class="line">trainRnn()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用keras的高级api建立模型 sequential通过向 tf.keras.models.Sequential() 提供一个层的列表，就能快速地建立一个 tf.keras.Model 模型并返回：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.models.Sequential([</span><br><span class="line">    tf.keras.layers.Flatten(),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">100</span>,activation=tf.nn.sigmoid),</span><br><span class="line">    <span class="comment"># tf.keras.layers.Dense(64,activation=tf.nn.relu),</span></span><br><span class="line">    tf.keras.layers.Dense(<span class="number">10</span>),</span><br><span class="line">    tf.keras.layers.Softmax()</span><br><span class="line">    ])</span><br><span class="line"><span class="comment">#Keras 提供了 Functional API，帮助我们建立更为复杂的模型，例如多输入 / 输出或存在参数共享的模型</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">FunctionalCreate</span><span class="params">()</span>:</span></span><br><span class="line">    inputs = tf.keras.Input(shape=(<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>))</span><br><span class="line">    x = tf.keras.layers.Flatten()(inputs)</span><br><span class="line">    x = tf.keras.layers.Dense(units=<span class="number">100</span>, activation=tf.nn.relu)(x)</span><br><span class="line">    x = tf.keras.layers.Dense(units=<span class="number">10</span>)(x)</span><br><span class="line">    outputs = tf.keras.layers.Softmax()(x)</span><br><span class="line">    model = tf.keras.Model(inputs=inputs, outputs=outputs)</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"><span class="comment"># trainMLP(MLP())</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">apitrain</span><span class="params">()</span>:</span></span><br><span class="line">    model = MLP()</span><br><span class="line">    <span class="comment">#使用kerasmodel的三个方法训练和评估</span></span><br><span class="line">    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="number">0.001</span>)</span><br><span class="line">        ,loss=tf.keras.losses.sparse_categorical_crossentropy</span><br><span class="line">        ,metrics=[tf.keras.metrics.sparse_categorical_accuracy])</span><br><span class="line">    <span class="comment">#complle接受 优化器，损失函数，评估指标都从对应的类里选</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    model.fit(MNISTLoader().train_data,MNISTLoader().train_label,epochs=<span class="number">3</span>,batch_size=<span class="number">100</span>)</span><br><span class="line">    <span class="comment">#返回列表包含最终loss和accuracy 在这里测试之前的模型准确率都上升了</span></span><br><span class="line">    print(<span class="string">'\n'</span>,model.evaluate(MNISTLoader().test_data,MNISTLoader().test_label))</span><br><span class="line">apitrain()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    友人A
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Tensorflow学习笔记(一）">http://yoursite.com/2020/05/08/tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Tensorflow/" rel="tag"><i class="fa fa-tag"></i> Tensorflow</a>
+          
+            <a href="/blog/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/05/07/%E7%BB%99%E6%96%87%E7%AB%A0%E5%8A%A0%E5%AF%86/" rel="next" title="给文章加密">
+                <i class="fa fa-chevron-left"></i> 给文章加密
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/blog/images/avatar.jpg"
+                alt="友人A" />
+            
+              <p class="site-author-name" itemprop="name">友人A</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+<!--my custom code begin-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+<script type="text/javascript">
+  $("#sidebar").hover(function(){
+    $("#mydivshow").velocity('stop').velocity({opacity: 1});
+  },function(){
+    $("#mydivshow").velocity('stop').velocity({opacity: 0});
+  });
+</script>
+<div id="mydivshow" class="mydivshow">
+<!--my custom code end-->
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/blog/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/kivids" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:1695949332@qq.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/yourname" target="_blank" title="Twitter">
+                    
+                      <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+<script>
+    L2Dwidget.init({
+        "model": {
+            //jsonpath控制显示那个小萝莉模型，下面这个就是我觉得最可爱的小萝莉koharu模型，替换时后面名字也要替换掉
+            jsonPath: "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+            "scale": 1
+        },
+        "display": {
+            "position": "left", //看板娘的表现位置
+            "width": 75,  //小萝莉的宽度
+            "height": 150, //小萝莉的高度
+            "hOffset": 0,
+            "vOffset": -30
+        },
+        "mobile": {
+            "show": true,
+            "scale": 0.5
+        },
+        "react": {
+            "opacityDefault": 0.7,
+            "opacityOnHover": 0.2
+        }
+    });
+</script>
+<!-- <div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=320 src="//music.163.com/outchain/player?type=0&id=5005348059&auto=0&height=430"></iframe>
+</div> -->
+<div id="player1" class="aplayer"></div>
+<script src="/js/src/APlayer.min.js"></script>
+<script type="text/javascript">
+const ap = new APlayer({
+    container: document.getElementById('player'),
+    fixed: true,
+    audio: [{
+        name: 'name',
+        artist: 'artist',
+        url: 'url.mp3',
+        cover: 'cover.jpg',
+    }]
+});
+</script>
+<button id="3Dtransition">3Dtransition</button>
+<script>
+  (function(){
+    var flag = false;
+    $("body").css({
+      "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+    })
+    function postCSS3d(){
+      if(flag == false){
+        flag = true;
+        $("body").css({
+            "transform": "perspective(6000px) rotateY(30deg) translateZ(-1000px) translateX(550px)",
+            "transform-style": "preserve-3d",
+            "perspective-origin": "50% 1000px",
+            "height": "100%",
+            "overflow": "scroll",
+            "pointer-events": "auto"
+        })
+        $("html").css({
+            "height": "100%"
+        })
+      }else{
+        flag = false;
+        $("body").css({
+            "transform": "inherit",
+            "transform-style": "inherit",
+            "perspective-origin": "inherit",
+            "height": "inherit",
+            "overflow": "inherit",
+            "pointer-events": "inherit"
+        })
+        $("html").css({
+            "height": "inherit"
+        })
+      }
+    }
+    $("3Dtransition").onClick(postCSS3d);
+  })()
+</script>
+          <!-- mycustom code begin -->
+          
+        </div>
+      <!--   my custom code end -->
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于搭建环境"><span class="nav-number">1.</span> <span class="nav-text">关于搭建环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于keras和tf-keras"><span class="nav-number">2.</span> <span class="nav-text">关于keras和tf.keras</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初识Tensorflow"><span class="nav-number">3.</span> <span class="nav-text">初识Tensorflow</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">友人A</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">4.7k</span>
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+  <!-- <script src="//unpkg.com/valine/dist/Valine.min.js"></script>   上面版本不用了 下面的是更新了显示qq头像功能-->
+  <script src='https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/Valine1.3.10.min.js'></script>
+  <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    //这是每日一词替换掉预设字段
+      jinrishici.load(function(result) {
+        var jrsc_plac =  result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin.dynasty + " · " + result.data.origin.author
+        document.getElementById("veditor").setAttribute("placeholder",jrsc_plac);
+      });
+      </script>
+      <style>
+      textarea[id='veditor']::placeholder{
+          color:#b3b3b3;font-size:14px;text-align:center;line-height:6rem;
+      }
+  </style>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Lw0t29wC5RUz5n9PqJtemGiT-gzGzoHsz',
+        appKey: 'E69s63maIHIQS5DQyTIpjaaH',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'retro',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+  <script>//加个正则检查 放在后面没有用
+    document.body.addEventListener('click', function(e) {
+        if (e.target.classList.contains('vsubmit')) {
+            const email = document.querySelector('input[type=email]');
+            const nick = document.querySelector('input[name=nick]');
+            const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            if (!email.value || !nick.value || !reg.test(email.value)) {
+                const str = `<div class="valert text-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+                const vmark = document.querySelector('.vmark');
+                vmark.innerHTML = str;
+                vmark.style.display = 'block';
+                setTimeout(function() {
+                    vmark.style.display = 'none';
+                    vmark.innerHTML = '';
+                }, 2500);
+            }
+        }
+    });
+</script>
+ 
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Lw0t29wC5RUz5n9PqJtemGiT-gzGzoHsz", "E69s63maIHIQS5DQyTIpjaaH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/blog/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+ <script src="https://blog-static.cnblogs.com/files/axqa/cursor-effects.js"></script> 
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>
