@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hello_Hexo</title>
-    <url>/2020/05/05/Hello-Hexo/</url>
+    <url>/blog/2020/05/05/Hello-Hexo/</url>
     <content><![CDATA[<p>本篇主要介绍如何用Hexo搭建Github Pages，并且对比了同类静态博客框架，记录了部署方面的易错认知，提出了一些常用插件及美化博客的思路。PS：本文非小白教程类</p>
 <a id="more"></a>
 
@@ -140,7 +140,7 @@
   </entry>
   <entry>
     <title>给文章加密</title>
-    <url>/2020/05/07/%E7%BB%99%E6%96%87%E7%AB%A0%E5%8A%A0%E5%AF%86/</url>
+    <url>/blog/2020/05/07/%E7%BB%99%E6%96%87%E7%AB%A0%E5%8A%A0%E5%AF%86/</url>
     <content><![CDATA[<p>Next主题没有发现内置加密，试试脚本加密</p>
 <a id="more"></a>
 <h4 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h4><ul>
@@ -157,7 +157,7 @@
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/2020/05/05/hello-world/</url>
+    <url>/blog/2020/05/05/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
