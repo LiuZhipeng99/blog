@@ -285,7 +285,10 @@
   <entry>
     <title>微信公众号Python开发（Wechatpy）</title>
     <url>/blog/2021/02/25/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\blog\assets\css\APlayer.min.css"><script src="\blog\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\blog\assets\js\Meting.min.js"></script><h1 id="微信公众号Python开发（Wechatpy）"><a href="#微信公众号Python开发（Wechatpy）" class="headerlink" title="微信公众号Python开发（Wechatpy）"></a>微信公众号Python开发（Wechatpy）</h1><blockquote>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\blog\assets\css\APlayer.min.css"><script src="\blog\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\blog\assets\js\Meting.min.js"></script><p>​        一个web框架练手项目</p>
+<a id="more"></a>
+
+<h1 id="微信公众号Python开发（Wechatpy）"><a href="#微信公众号Python开发（Wechatpy）" class="headerlink" title="微信公众号Python开发（Wechatpy）"></a>微信公众号Python开发（Wechatpy）</h1><blockquote>
 <p>前言：微信公众号后台只提供指定条件的指定回复，如果想有聊天、翻译、查询、后台数据库等则需要使用公众号提供的接口开发脚本。开发工具语言选择诸多，Python+Web框架是较为快捷的，这也是我第一个web框架练手项目。</p>
 </blockquote>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>  注册两个平台：<a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">微信公众号</a>和<a href="https://www.sinacloud.com" target="_blank" rel="noopener">新浪云</a>（ps：微信订阅号和小程序是不同账号，并且长期不等录会冻结），这里选择新浪云的云应用也可用其他平台的云应用，细节差别看其文档。</p>
